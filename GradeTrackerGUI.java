@@ -8,12 +8,10 @@ import java.awt.event.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 
-// =====================================================================================
 //  GradeTracker GUI  —  Swing-based Student Grade Management System
-// =====================================================================================
 public class GradeTrackerGUI extends JFrame {
 
-    // ── Brand palette (from SVG logo) ───────────────────────────────────────────────
+    // Brand palette (from SVG logo)
     static final Color NAVY     = new Color(0x16, 0x31, 0x4F);   // #16314f
     static final Color NAVY_MID = new Color(0x23, 0x4A, 0x72);   // #234a72
     static final Color TEAL     = new Color(0x2B, 0xB3, 0xA3);   // #2bb3a3
@@ -26,15 +24,15 @@ public class GradeTrackerGUI extends JFrame {
     static final Color ORANGE   = new Color(0xF9, 0x73, 0x16);
     static final Color RED_ERR  = new Color(0xEF, 0x44, 0x44);
 
-    // ── Data ────────────────────────────────────────────────────────────────────────
+    //  Data 
     private final ArrayList<Student> students = new ArrayList<>();
     private DefaultTableModel tableModel;
     private JLabel lblAvg, lblHighest, lblLowest, lblCount;
     private JTable table;
 
-    // =====================================================================================
+    
     //  Constructor
-    // =====================================================================================
+    
     public GradeTrackerGUI() {
         super("GradeTracker — Student Grade Management System");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -63,9 +61,7 @@ public class GradeTrackerGUI extends JFrame {
         setVisible(true);
     }
 
-    // =====================================================================================
     //  HEADER — Logo panel
-    // =====================================================================================
     private JPanel buildHeader() {
         JPanel header = new JPanel(new BorderLayout()) {
             @Override protected void paintComponent(Graphics g) {
@@ -98,9 +94,7 @@ public class GradeTrackerGUI extends JFrame {
         return header;
     }
 
-    // =====================================================================================
     //  CENTER — Table + Form side-by-side
-    // =====================================================================================
     private JSplitPane buildCenter() {
         JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, buildTablePanel(), buildFormPanel());
         split.setDividerLocation(580);
@@ -111,7 +105,7 @@ public class GradeTrackerGUI extends JFrame {
         return split;
     }
 
-    // ── Table Panel ──────────────────────────────────────────────────────────────────
+    // Table Panel
     private JPanel buildTablePanel() {
         JPanel panel = new JPanel(new BorderLayout(0, 12));
         panel.setOpaque(false);
@@ -152,7 +146,7 @@ public class GradeTrackerGUI extends JFrame {
         return panel;
     }
 
-    // ── Form Panel ───────────────────────────────────────────────────────────────────
+    // Form Panel 
     private JPanel buildFormPanel() {
         JPanel panel = new JPanel(new BorderLayout(0, 16));
         panel.setOpaque(false);
@@ -251,9 +245,7 @@ public class GradeTrackerGUI extends JFrame {
         return panel;
     }
 
-    // =====================================================================================
     //  STATS FOOTER
-    // =====================================================================================
     private JPanel buildStatsFooter() {
         JPanel bar = new JPanel(new GridLayout(1, 4, 1, 0)) {
             @Override protected void paintComponent(Graphics g) {
@@ -313,9 +305,7 @@ public class GradeTrackerGUI extends JFrame {
         return p;
     }
 
-    // =====================================================================================
     //  Logic helpers
-    // =====================================================================================
     private void refreshTable() {
         tableModel.setRowCount(0);
         for (int i = 0; i < students.size(); i++) {
@@ -396,9 +386,7 @@ public class GradeTrackerGUI extends JFrame {
         }
     }
 
-    // =====================================================================================
     //  Styling helpers
-    // =====================================================================================
     private void styleTable(JTable t) {
         t.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         t.setRowHeight(36);
@@ -548,7 +536,7 @@ public class GradeTrackerGUI extends JFrame {
         t.start();
     }
 
-    // ── Grade helpers ─────────────────────────────────────────────────────────────────
+    //  Grade helpers 
     static char gradeFromScore(double s) {
         if (s >= 90) return 'A';
         if (s >= 80) return 'B';
@@ -573,9 +561,7 @@ public class GradeTrackerGUI extends JFrame {
         return "Fail";
     }
 
-    // =====================================================================================
     //  LOGO PANEL  — redraws the SVG logo in pure Java2D
-    // =====================================================================================
     static class LogoPanel extends JPanel {
         @Override protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -589,15 +575,15 @@ public class GradeTrackerGUI extends JFrame {
             g2.translate(8, 6);
             g2.scale(scale, scale);
 
-            // ── Badge (rounded rect) ──────────────────────────────────────────
+            // Badge (rounded rect) 
             g2.setColor(NAVY);
             g2.fillRoundRect(0, 0, 120, 120, 24, 24);
 
-            // ── Ellipse shadow ────────────────────────────────────────────────
+            // Ellipse shadow
             g2.setColor(NAVY_MID);
             g2.fillOval(40, 54, 40, 16);
 
-            // ── Graduation cap (polygon) ──────────────────────────────────────
+            // Graduation cap (polygon) 
             int[] capX = {60, 98, 60, 22};
             int[] capY = {26, 44, 62, 44};
             g2.setColor(GOLD);
@@ -614,7 +600,7 @@ public class GradeTrackerGUI extends JFrame {
             g2.setColor(GOLD);
             g2.fillOval(79, 69, 10, 10);
 
-            // ── Bar chart (3 ascending bars) ──────────────────────────────────
+            // Bar chart (3 ascending bars) 
             g2.setColor(TEAL);
             g2.setStroke(new BasicStroke(1f));
             g2.fillRoundRect(18, 98, 14, 14, 4, 4);
@@ -623,7 +609,7 @@ public class GradeTrackerGUI extends JFrame {
 
             g2.dispose();
 
-            // ── Wordmark text (drawn in screen coords, after scale reset) ─────
+            //  Wordmark text (drawn in screen coords, after scale reset)
             Graphics2D g3 = (Graphics2D) g.create();
             g3.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 
@@ -653,18 +639,14 @@ public class GradeTrackerGUI extends JFrame {
         }
     }
 
-    // =====================================================================================
     //  Student model
-    // =====================================================================================
     static class Student {
         String name;
         double score;
         Student(String n, double s) { name = n; score = s; }
     }
 
-    // =====================================================================================
     //  Entry point
-    // =====================================================================================
     public static void main(String[] args) {
         // Use system look-and-feel as base, then override with custom styling
         try { UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); }
